@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, RailRunnerActivity!</string>
+    <string name="app_name">Rail Runner</string>
+    <string-array name="stations">
+        <item>Belen</item>
+        <item>Los Lunas</item>
+        <item>Isleta Pueblo</item>
+        <item>Bernalillo County</item>
+        <item>Downtown ABQ</item>
+        <item>Los Ranchos/JC</item>
+        <item>Sandia Pueblo</item>
+        <item>Bernalillo D/T</item>
+        <item>Sandoval/US 550</item>
+        <item>Kewa</item>
+        <item>SF County/NM 599</item>
+        <item>South Capitol</item>
+        <item>Santa Fe Depot</item>
+    </string-array>
+
+</resources>
