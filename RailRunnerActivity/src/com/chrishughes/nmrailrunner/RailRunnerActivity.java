@@ -4,7 +4,6 @@ package com.chrishughes.nmrailrunner;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.List;
 
 import kankan.wheel.widget.OnWheelScrollListener;
@@ -22,6 +21,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import au.com.bytecode.opencsv.CSVReader;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 public class RailRunnerActivity extends Activity implements OnWheelScrollListener,OnItemSelectedListener{
 	/** Called when the activity is first created. */
 
@@ -29,7 +30,7 @@ public class RailRunnerActivity extends Activity implements OnWheelScrollListene
 	private int dotw;
 	private WheelView from;
 	private WheelView to;
-	private List<String[]> weekday;
+	private List<String[]> data;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,24 +70,29 @@ public class RailRunnerActivity extends Activity implements OnWheelScrollListene
 
 
 		// Assign adapter to ListView
-
-		InputStream raw = null;
-		try {
+		try{
+			InputStream raw = null;
 			raw = getAssets().open("rr.csv");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		CSVReader reader = new CSVReader(new InputStreamReader(raw));
-		try {
-			weekday = reader.readAll();
+			CSVReader reader = new CSVReader(new InputStreamReader(raw));
+			data = reader.readAll();
 			reader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		}catch(IOException e){
 			e.printStackTrace();
+			finish();
 		}
 
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		EasyTracker.getInstance().activityStop(this);
 	}
 
 	@Override
@@ -114,8 +120,8 @@ public class RailRunnerActivity extends Activity implements OnWheelScrollListene
 		}
 		fromid += 28*dotw;
 		toid+= 28*dotw;
-		String[] fromtimes = weekday.get(fromid);
-		String[] totimes = weekday.get(toid);
+		String[] fromtimes = data.get(fromid);
+		String[] totimes = data.get(toid);
 		for (int i = 1; i < fromtimes.length; i++) {
 			if (fromtimes[i].equals("") || totimes[i].equals("")){
 				continue;
