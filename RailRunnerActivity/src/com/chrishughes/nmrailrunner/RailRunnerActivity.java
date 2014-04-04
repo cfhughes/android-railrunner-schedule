@@ -86,13 +86,13 @@ public class RailRunnerActivity extends Activity implements OnWheelScrollListene
 	@Override
 	protected void onStart() {
 		super.onStart();
-		EasyTracker.getInstance().activityStart(this);
+		EasyTracker.getInstance(this).activityStart(this);
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		EasyTracker.getInstance().activityStop(this);
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 
 	@Override
@@ -115,11 +115,11 @@ public class RailRunnerActivity extends Activity implements OnWheelScrollListene
 		int fromid = from.getCurrentItem()+1;
 		int toid = to.getCurrentItem()+1;
 		if (fromid > toid){
-			fromid = 28 - fromid;
-			toid = 28 - toid;
+			fromid = 30 - fromid;
+			toid = 30 - toid;
 		}
-		fromid += 28*dotw;
-		toid+= 28*dotw;
+		fromid += 30*dotw;
+		toid+= 30*dotw;
 		String[] fromtimes = data.get(fromid);
 		String[] totimes = data.get(toid);
 		for (int i = 1; i < fromtimes.length; i++) {
